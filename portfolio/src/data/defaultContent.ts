@@ -4,7 +4,7 @@ export const defaultPortfolioContent: PortfolioContent = {
   "profile": {
     "name": "Farid Stiven Prado Hoyos",
     "shortName": "Farid Stiven",
-    "headline": "Ingeniería Multimedia, producto digital e inteligencia artificial aplicada.",
+    "headline": "Ingeniero Multimedia, producto digital e inteligencia artificial aplicada.",
     "intro": "Construyo experiencias digitales donde conviven diseño, software e inteligencia artificial. Este sitio funciona como un asistente conversacional que responde sobre mi perfil, proyectos, formación y visión profesional.",
     "status": "Disponible para crear, colaborar y aprender",
     "avatarAlt": "Farid Stiven Prado Hoyos",
