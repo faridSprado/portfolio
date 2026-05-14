@@ -182,6 +182,39 @@
         "Estrategia de Canales Digitales"
       ],
       "companyUrl": ""
+    },
+    {
+      "id": "experience-mp61v4lt",
+      "company": "SENA",
+      "role": "Técnico en contabilización de operaciones comerciales y financieras",
+      "period": {
+        "start": "Septiembre 2017",
+        "end": "Diciembre 2018"
+      },
+      "description": "Técnico profesional capacitado para verificar, registrar y medir hechos económicos empresariales bajo normatividad contable y fiscal vigente. \n\nDesarrollo de competencias clave como la contabilización de operaciones comerciales, gestión integral de inventarios de materiales y equipos, e interpretación básica de textos comerciales en inglés.\n\nFormación complementaria en relaciones humanas y ética aplicada a contextos laborales.",
+      "technologies": [
+        "Microsoft Excel aplicado a finanzas",
+        "Sistemas de Información Contable (Software Siigo / Helisa)",
+        "Normas Internacionales de Información Financiera (NIIF)",
+        "Estatuto Tributario y Retención en la Fuente",
+        "Reconocimiento y medición de hechos económicos",
+        "Preparación de estados financieros básicos",
+        "Elaboración y control de asientos contables",
+        "Liquidación de nómina y prestaciones sociales",
+        "Cuentas por cobrar y cuentas por pagar",
+        "Gestión y control de inventarios (Kárdex)",
+        "Control interno y arqueo de caja",
+        "Facturación electrónica y soportes comerciales",
+        "Declaración de impuestos locales (IVA",
+        "ICA)",
+        "Conciliación bancaria automatizada",
+        "Matemáticas financieras aplicadas",
+        "Presupuestos organizacionales",
+        "Inglés técnico comercial",
+        "Herramientas de ofimática (Word",
+        "PowerPoint)"
+      ],
+      "companyUrl": ""
     }
   ],
   "languageEcosystem": [
