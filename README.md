@@ -583,20 +583,6 @@ El proyecto está diseñado para funcionar con servicios gratuitos, aceptando la
 
 ---
 
-## Roadmap posible
-
-- Separar “Guardar borrador” y “Publicar en GitHub” en el panel admin.
-- Agregar autenticación más robusta para el panel privado.
-- Añadir persistencia en base de datos.
-- Implementar historial de cambios del contenido.
-- Añadir tests end-to-end.
-- Optimizar code splitting del frontend.
-- Mejorar analítica de uso del asistente.
-- Agregar soporte multiidioma.
-- Verificar dominio propio para correo profesional con Resend.
-
----
-
 ## Qué demuestra este proyecto
 
 Este repositorio demuestra habilidades en:
