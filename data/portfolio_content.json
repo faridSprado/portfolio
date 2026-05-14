@@ -56,7 +56,9 @@
       ],
       "repoUrl": "https://github.com/faridSprado/portfolio",
       "projectUrl": "https://faridprado.vercel.app",
-      "images": []
+      "images": [
+        "/projects/portfolio.png"
+      ]
     },
     {
       "id": "pipeline-enriquecimiento-clientes-o-proveedores",
@@ -78,7 +80,9 @@
       ],
       "repoUrl": "https://github.com/faridSprado/procedural-writing-system",
       "projectUrl": "https://faridSprado.github.io/procedural-writing-system/",
-      "images": []
+      "images": [
+        "/projects/procedural-writing-system.png"
+      ]
     },
     {
       "id": "insightagent-saag",
