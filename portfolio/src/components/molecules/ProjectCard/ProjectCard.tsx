@@ -8,7 +8,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const [modalImage, setModalImage] = useState<string | URL | null>(null)
+  const [modalImage, setModalImage] = useState<string | null>(null)
 
   return (
     <div className="space-y-4">
@@ -51,7 +51,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {project.images.map((img, index) => (
             <button key={index} className="group relative shrink-0 overflow-hidden rounded-2xl border border-border" onClick={() => setModalImage(img)}>
               <img
-                src={typeof img === "string" ? img : img.toString()}
+                src={img}
                 alt={`${project.title} preview ${index + 1}`}
                 className="h-40 w-auto object-cover transition duration-300 group-hover:scale-105"
                 loading="lazy"
