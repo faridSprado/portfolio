@@ -1,5 +1,4 @@
 import { create } from "zustand"
-import { defaultPortfolioContent } from "@/data/defaultContent"
 import { fetchPortfolioContent } from "@/lib/api/content"
 import type { PortfolioContentState } from "@/types"
 
