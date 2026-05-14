@@ -4,8 +4,8 @@ import { fetchPortfolioContent } from "@/lib/api/content"
 import type { PortfolioContentState } from "@/types"
 
 export const usePortfolioContentStore = create<PortfolioContentState>((set) => ({
-  content: defaultPortfolioContent,
-  isLoading: false,
+  content: null,
+  isLoading: true,
   error: null,
 
   setContent: (content) => set({ content, error: null }),

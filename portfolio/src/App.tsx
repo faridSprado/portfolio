@@ -11,6 +11,8 @@ import { SEO } from "./components/atoms";
 function App() {
   const { theme } = useThemeStore();
   const loadContent = usePortfolioContentStore((state) => state.loadContent);
+  const content = usePortfolioContentStore((state) => state.content);
+  const isLoading = usePortfolioContentStore((state) => state.isLoading);
   const isAdminRoute = useMemo(() => window.location.pathname.startsWith("/admin"), []);
 
   useEffect(() => {
@@ -24,6 +26,12 @@ function App() {
   useEffect(() => {
     if (!isAdminRoute) tokenManager.initialize();
   }, [isAdminRoute]);
+
+  if (isLoading || !content) {
+  return (
+    <div className="min-h-screen bg-background" />
+  );
+}
 
   return (
     <HelmetProvider>

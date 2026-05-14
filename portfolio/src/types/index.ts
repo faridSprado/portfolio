@@ -125,7 +125,7 @@ export interface ThemeState {
 }
 
 export interface PortfolioContentState {
-  content: PortfolioContent
+  content: PortfolioContent | null
   isLoading: boolean
   error: string | null
   setContent: (content: PortfolioContent) => void
