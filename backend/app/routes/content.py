@@ -9,6 +9,8 @@ from app.services.github_sync import GitHubSyncError, sync_portfolio_content_to_
 from ..models.content import PortfolioContent
 from ..services.content_store import PortfolioContentStore
 
+from pathlib import Path
+
 content_router = APIRouter()
 store = PortfolioContentStore()
 
@@ -54,6 +56,15 @@ def _content_to_json_dict(content: PortfolioContent) -> dict[str, Any]:
 def get_content() -> PortfolioContent:
     return store.load()
 
+@content_router.get("/content/debug")
+def get_content_debug() -> dict[str, str | bool]:
+    path = store.content_path
+    return {
+        "content_path": str(path),
+        "resolved_path": str(path.resolve()),
+        "exists": path.exists(),
+        "headline": store.load().profile.headline,
+    }
 
 @content_router.get("/admin/content", response_model=PortfolioContent)
 def get_admin_content(x_admin_secret: str = Header(default="")) -> PortfolioContent:
