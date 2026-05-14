@@ -2,6 +2,8 @@
 
 Portfolio profesional conversacional de **Farid Stiven Prado Hoyos**.
 
+**Link:** https://faridprado.vercel.app
+
 El proyecto combina una interfaz moderna de portfolio con un asistente de IA que responde sobre el perfil, proyectos, trayectoria, habilidades y datos de contacto de Farid. El contenido se administra desde un panel privado y se guarda en un JSON persistente dentro del proyecto.
 
 ## Stack principal
@@ -179,18 +181,3 @@ Auditoría Go del contenido:
 ```bash
 go run tools/go-content-audit/main.go data/portfolio_content.json
 ```
-
-## Deploy sugerido
-
-1. Crea un repositorio nuevo en GitHub.
-2. Sube este proyecto sin archivos `.env` reales.
-3. Configura las variables de entorno en tu plataforma de deploy.
-4. Asegura persistencia para `./data:/app/data` si usas Docker Compose.
-5. Apunta tu dominio al servidor y activa SSL/TLS.
-
-## Seguridad
-
-- No subas `.env`, `.venv`, `node_modules`, `dist`, logs ni cachés.
-- Genera valores fuertes para `ADMIN_SECRET`, `SECRET_KEY` y `CLIENT_SECRET`.
-- El frontend usa variables `VITE_*`, por lo que cualquier valor allí debe considerarse público.
-- La API key de Gemini debe vivir únicamente en backend/infraestructura.
