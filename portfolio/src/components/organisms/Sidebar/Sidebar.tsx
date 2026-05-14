@@ -95,6 +95,10 @@ export function Sidebar() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [sidebarOpen, isDesktop, setSidebarOpen]);
 
+  if (!content) {
+  return null;
+}
+
   const handleBackdropClick = () => setSidebarOpen(false);
 
   const handleReset = () => {

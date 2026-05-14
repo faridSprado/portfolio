@@ -250,6 +250,7 @@ export function ChatInterface() {
     scrollToBottom();
   }, [messages]);
 
+
   const sendStreamingMessage = useCallback(
     (message: string) => {
       setTyping(true);
@@ -407,6 +408,11 @@ export function ChatInterface() {
   };
 
   const hasMessages = messages.length > 0;
+
+  if (!content) {
+  return null;
+}
+
   const handleProjectsSuggestion = () =>
     sendProjectMessages(addMessage, setTyping, content.projects);
   const handleExperienceSuggestion = () =>
