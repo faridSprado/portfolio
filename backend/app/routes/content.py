@@ -1,6 +1,10 @@
 import hmac
 import os
+from typing import Any
+
 from fastapi import APIRouter, Header, HTTPException, status
+
+from app.services.github_sync import GitHubSyncError, sync_portfolio_content_to_github
 
 from ..models.content import PortfolioContent
 from ..services.content_store import PortfolioContentStore
@@ -39,6 +43,13 @@ def require_admin_secret(x_admin_secret: str = Header(default="")) -> None:
         )
 
 
+def _content_to_json_dict(content: PortfolioContent) -> dict[str, Any]:
+    """Convert Pydantic content to a JSON-compatible dict."""
+    if hasattr(content, "model_dump"):
+        return content.model_dump(mode="json")
+    return content.dict()
+
+
 @content_router.get("/content", response_model=PortfolioContent)
 def get_content() -> PortfolioContent:
     return store.load()
@@ -51,6 +62,23 @@ def get_admin_content(x_admin_secret: str = Header(default="")) -> PortfolioCont
 
 
 @content_router.put("/admin/content", response_model=PortfolioContent)
-def update_content(content: PortfolioContent, x_admin_secret: str = Header(default="")) -> PortfolioContent:
+async def update_content(
+    content: PortfolioContent,
+    x_admin_secret: str = Header(default=""),
+) -> PortfolioContent:
     require_admin_secret(x_admin_secret)
-    return store.save(content)
+
+    saved_content = store.save(content)
+
+    try:
+        await sync_portfolio_content_to_github(_content_to_json_dict(saved_content))
+    except GitHubSyncError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail=(
+                "El contenido se guardó en Render, pero no se pudo publicar "
+                f"en GitHub: {exc}"
+            ),
+        ) from exc
+
+    return saved_content
