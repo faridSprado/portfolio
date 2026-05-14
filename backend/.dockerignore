@@ -1,0 +1,61 @@
+# Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Environment files (secrets)
+.env
+.env.*
+!.env.example
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+*.sw?
+
+# Logs
+*.log
+pip-log.txt
+
+# Test / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage/
+.tox/
+nox/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# AI Agent docs (dev only)
+.agents/
+specs/
+skills-lock.json
+
+# Distribution
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.temp

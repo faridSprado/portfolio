@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+
+# Environment files (secrets)
+.env
+.env.*
+!.env.example
+
+# Git
+.git
+.gitignore
+
+# Docs & specs (dev only)
+*.md
+docs/
+specs/
+context/
+
+# AI Agent Memory
+.engram/
+agents/
+
+# Temporary
+.cache/
+*.tmp
+*.temp

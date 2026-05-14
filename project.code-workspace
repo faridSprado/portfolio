@@ -1,0 +1,31 @@
+
+{
+    "folders":[
+        {
+            "name": "web",
+            "path": "portfolio"
+        },
+        {
+            "name": "api",
+            "path": "backend"
+        },
+        {
+            "name": "root",
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/.DS_Store": true,
+            "**/Thumbs.db": true,
+            "**/node_modules": true,
+            "**/__pycache__": true,
+            "**/dist": true,
+            "portfolio": true,
+            "backend": true
+        }
+    }
+}

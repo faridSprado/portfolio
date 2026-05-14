@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Environment files (NEVER commit secrets)
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.sw?
+
+# Logs
+*.log
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Test / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage/
+.tox/
+.nox/
+
+# mypy / type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Distribution / Packaging
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# AI Agent docs (development only)
+.agents/
+specs/
+skills-lock.json

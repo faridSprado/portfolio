@@ -1,0 +1,680 @@
+[
+  {
+    "id": "TC001",
+    "title": "Send a message and observe a streaming AI reply progressing in the chat",
+    "description": "Verifies a user can send a message and see an AI response appear progressively as a streaming reply.",
+    "category": "AI Chat Streaming",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"chat input\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Hello! Can you summarize what you do?\" into the chat input"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Send\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Hello! Can you summarize what you do?\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"assistant reply (streaming)\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"assistant reply\" shows additional text appearing progressively (stream continues)"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Continue conversation after receiving a streaming reply",
+    "description": "Verifies the chat supports multi-turn conversation by sending a follow-up message after a streaming reply completes/settles.",
+    "category": "AI Chat Streaming",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Type \"What projects are highlighted?\" into the chat input"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Send\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"assistant reply\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Pick one and list the tech stack.\" into the chat input"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Send\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Pick one and list the tech stack.\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"assistant reply\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Empty message is not sent",
+    "description": "Verifies the user cannot send an empty message and no new chat message appears.",
+    "category": "AI Chat Streaming",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"chat input\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"   \" into the chat input"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Send\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Retry\" is not visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"new user message bubble\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Long message can be sent and still receives a streaming reply",
+    "description": "Verifies the chat can handle sending a longer user message and still render a streaming response.",
+    "category": "AI Chat Streaming",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Please provide a detailed overview of your experience, including key responsibilities, accomplishments, and technologies used across roles.\" into the chat input"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Send\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Please provide a detailed overview of your experience\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"assistant reply (streaming)\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"assistant reply\" shows additional text appearing progressively (stream continues)"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Submit contact form successfully from sidebar entry point",
+    "description": "Verifies a user can open the guided contact flow from the sidebar and submit valid details to see a success confirmation.",
+    "category": "Contact Flow",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Contact\" in the sidebar"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Name\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Alex Tester\" into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"alex.tester@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Hello, I’d like to get in touch about a project.\" into the message field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Success\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Submit contact form successfully from chat suggestion entry point",
+    "description": "Verifies a user can open the guided contact flow from a suggestion in the chat UI and submit valid details successfully.",
+    "category": "Contact Flow",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on the chat suggestion that opens the contact flow"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Email\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Jamie Visitor\" into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"jamie.visitor@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Can we schedule a quick call this week?\" into the message field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Success\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Invalid email shows inline error and can be corrected to submit successfully",
+    "description": "Verifies invalid email input shows an inline validation error and correcting it allows successful submission.",
+    "category": "Contact Flow",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Contact\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Morgan Lee\" into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"morgan@\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Interested in collaborating—please reach out.\" into the message field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Invalid email\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"morgan.lee@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Success\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Missing email triggers required-field validation and can be fixed to submit successfully",
+    "description": "Verifies leaving email empty shows required-field validation and filling it allows successful submission.",
+    "category": "Contact Flow",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Contact\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Taylor Chen\" into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Following up on your portfolio—please contact me.\" into the message field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Email is required\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"taylor.chen@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Success\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Submitting with all fields empty shows validation errors",
+    "description": "Verifies submitting the contact form without entering any values shows required-field validation messages.",
+    "category": "Contact Flow",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Contact\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Name is required\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Email is required\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Message is required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "After success, confirmation remains visible in the chat interface",
+    "description": "Verifies the success confirmation is visibly shown after submission and appears within the chat interface context.",
+    "category": "Contact Flow",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Contact\" in the sidebar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Casey Nguyen\" into the name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"casey.nguyen@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Please share your availability for next week.\" into the message field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Success\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Chat\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Display About content from sidebar selection",
+    "description": "Verifies that selecting the About section in the sidebar displays About content in the chat area.",
+    "category": "Sectioned Portfolio Content",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Sidebar\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Open sidebar sections\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"About\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"About\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Chat area\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Display Projects cards in chat area from sidebar selection",
+    "description": "Verifies that selecting the Projects section shows project cards (or a projects list area) in the chat area.",
+    "category": "Sectioned Portfolio Content",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Open sidebar sections\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Projects\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Projects\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Project card\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Chat area\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Open a project card to view project details",
+    "description": "Verifies that clicking a project card expands or displays project details in the chat area.",
+    "category": "Sectioned Portfolio Content",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Open sidebar sections\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Projects\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Project card\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first visible \"Project card\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Project details\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Chat area\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Display Experience cards in chat area from sidebar selection",
+    "description": "Verifies that selecting the Experience section shows experience cards in the chat area.",
+    "category": "Sectioned Portfolio Content",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Open sidebar sections\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Experience\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Experience\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Experience card\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Chat area\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Open an experience card to view expanded details",
+    "description": "Verifies that clicking an experience card shows expanded experience details in the chat area.",
+    "category": "Sectioned Portfolio Content",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Open sidebar sections\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Experience\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Experience card\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first visible \"Experience card\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Expanded experience details\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Chat area\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Switch sections after viewing Projects to ensure content updates",
+    "description": "Verifies that switching from Projects to About updates the chat area content to the newly selected section.",
+    "category": "Sectioned Portfolio Content",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Open sidebar sections\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Projects\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Project card\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"About\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"About\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Project card\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Projects empty state handling and recovery via switching sections",
+    "description": "Verifies that when no projects exist, an empty state is shown and the user can switch to another section successfully.",
+    "category": "Sectioned Portfolio Content",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Open sidebar sections\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Projects\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"No projects\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Experience\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Experience\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Experience card\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "Repeated sidebar open/close does not break section selection",
+    "description": "Verifies that opening the sidebar sections multiple times still allows selecting a section and displaying its content.",
+    "category": "Sectioned Portfolio Content",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Open sidebar sections\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Open sidebar sections\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Open sidebar sections\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"About\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"About\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Chat area\" is visible"
+      }
+    ]
+  }
+]
