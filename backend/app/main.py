@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from .routes.api_route import api_route
@@ -22,6 +22,7 @@ _default_origins = [
     "http://127.0.0.1:4173",
     "https://faridprado.dev",
     "https://www.faridprado.dev",
+    "https://faridprado.vercel.app",
 ]
 origins = [origin.strip() for origin in os.getenv("FRONTEND_ORIGINS", "").split(",") if origin.strip()] or _default_origins
 
@@ -34,9 +35,28 @@ app.add_middleware(
 )
 
 
-@app.get("/health")
-def health():
+def _health_payload() -> dict[str, str]:
     return {"status": "ok", "service": "farid-ai-portfolio"}
+
+
+@app.get("/health")
+def health() -> dict[str, str]:
+    return _health_payload()
+
+
+@app.head("/health", status_code=200)
+def health_head() -> Response:
+    return Response(status_code=200)
+
+
+@app.get("/api/health")
+def api_health() -> dict[str, str]:
+    return _health_payload()
+
+
+@app.head("/api/health", status_code=200)
+def api_health_head() -> Response:
+    return Response(status_code=200)
 
 
 app.include_router(api_route)

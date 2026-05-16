@@ -6,6 +6,8 @@ import type { PortfolioContent, PortfolioContentState } from "@/types"
 const CONTENT_CACHE_KEY = "portfolio-content-cache-v1"
 
 function readCachedContent(): PortfolioContent | null {
+  if (typeof window === "undefined") return null
+
   try {
     const raw = window.localStorage.getItem(CONTENT_CACHE_KEY)
     return raw ? (JSON.parse(raw) as PortfolioContent) : null
@@ -15,20 +17,21 @@ function readCachedContent(): PortfolioContent | null {
 }
 
 function writeCachedContent(content: PortfolioContent) {
+  if (typeof window === "undefined") return
+
   try {
     window.localStorage.setItem(CONTENT_CACHE_KEY, JSON.stringify(content))
   } catch {
-    // Ignore storage errors.
+    // Ignore storage errors. The remote API remains the source of truth.
   }
 }
 
 export const usePortfolioContentStore = create<PortfolioContentState>((set) => {
-  const cachedContent =
-    typeof window !== "undefined" ? readCachedContent() : null
+  const initialCachedContent = readCachedContent()
 
   return {
-    content: cachedContent,
-    isLoading: !cachedContent,
+    content: initialCachedContent,
+    isLoading: !initialCachedContent,
     error: null,
 
     setContent: (content) => {
@@ -37,7 +40,13 @@ export const usePortfolioContentStore = create<PortfolioContentState>((set) => {
     },
 
     loadContent: async () => {
-      set({ isLoading: !cachedContent, error: null })
+      const cachedContent = readCachedContent()
+
+      set({
+        ...(cachedContent ? { content: cachedContent } : {}),
+        isLoading: !cachedContent,
+        error: null,
+      })
 
       try {
         const content = await fetchPortfolioContent()
