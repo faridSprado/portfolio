@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react"
 import { pingBackendHealth } from "@/lib/api/health"
 
-export type BackendWakeupStatus = "idle" | "waking" | "ready" | "error"
+export type BackendWakeupStatus = "idle" | "checking" | "waking" | "ready" | "error"
 
 interface UseBackendWakeupOptions {
   enabled?: boolean
+  /**
+   * The notice should not appear for normal network latency.
+   * It is shown only when the backend takes longer than this value.
+   */
   noticeDelayMs?: number
   requestTimeoutMs?: number
   retryDelayMs?: number
@@ -17,8 +21,8 @@ function sleep(ms: number) {
 
 export function useBackendWakeup({
   enabled = true,
-  noticeDelayMs = 900,
-  requestTimeoutMs = 4_000,
+  noticeDelayMs = 5_000,
+  requestTimeoutMs = 8_000,
   retryDelayMs = 3_500,
   maxAttempts = 12,
 }: UseBackendWakeupOptions = {}) {
@@ -33,17 +37,18 @@ export function useBackendWakeup({
     }
 
     let cancelled = false
-    let noticeWasShown = false
+    let shouldShowWakeupNotice = false
     let readyHideTimer: number | undefined
 
-    const revealWakeupNotice = () => {
+    setStatus("checking")
+    setShowNotice(false)
+
+    const noticeTimer = window.setTimeout(() => {
       if (cancelled) return
-      noticeWasShown = true
+      shouldShowWakeupNotice = true
       setStatus("waking")
       setShowNotice(true)
-    }
-
-    const noticeTimer = window.setTimeout(revealWakeupNotice, noticeDelayMs)
+    }, noticeDelayMs)
 
     async function runWakeup() {
       for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
@@ -59,9 +64,15 @@ export function useBackendWakeup({
             window.clearTimeout(noticeTimer)
             setStatus("ready")
 
-            readyHideTimer = window.setTimeout(() => {
-              if (!cancelled) setShowNotice(false)
-            }, noticeWasShown ? 1_500 : 0)
+            // If the backend answered before noticeDelayMs, never show a popup.
+            // If the notice was already visible, briefly confirm readiness and hide it.
+            if (shouldShowWakeupNotice) {
+              readyHideTimer = window.setTimeout(() => {
+                if (!cancelled) setShowNotice(false)
+              }, 1_200)
+            } else {
+              setShowNotice(false)
+            }
 
             return
           }
@@ -73,7 +84,10 @@ export function useBackendWakeup({
 
         if (cancelled) return
 
-        revealWakeupNotice()
+        if (shouldShowWakeupNotice) {
+          setStatus("waking")
+          setShowNotice(true)
+        }
 
         if (attempt < maxAttempts) {
           await sleep(retryDelayMs)
@@ -81,6 +95,7 @@ export function useBackendWakeup({
       }
 
       if (!cancelled) {
+        window.clearTimeout(noticeTimer)
         setStatus("error")
         setShowNotice(true)
       }

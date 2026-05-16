@@ -16,7 +16,11 @@ function App() {
   const content = usePortfolioContentStore((state) => state.content);
   const isLoading = usePortfolioContentStore((state) => state.isLoading);
   const isAdminRoute = useMemo(() => window.location.pathname.startsWith("/admin"), []);
-  const backendWakeup = useBackendWakeup();
+  const backendWakeup = useBackendWakeup({
+    enabled: !isAdminRoute,
+    noticeDelayMs: 5_000,
+    requestTimeoutMs: 8_000,
+  });
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -31,6 +35,8 @@ function App() {
   }, [isAdminRoute]);
 
   if (isLoading || !content) {
+    const isActuallyWaking = backendWakeup.showNotice && backendWakeup.status === "waking";
+
     return (
       <HelmetProvider>
         <SEO />
@@ -42,7 +48,7 @@ function App() {
                 Preparando portfolio
               </p>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                {backendWakeup.status === "waking"
+                {isActuallyWaking
                   ? "Despertando el copiloto... El backend gratuito puede tardar unos segundos si estuvo inactivo."
                   : "Cargando la experiencia conversacional."}
               </p>
