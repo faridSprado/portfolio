@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 import { pingBackendHealth } from "@/lib/api/health"
 
-export type BackendWakeupStatus = "idle" | "checking" | "waking" | "ready" | "error"
+export type BackendWakeupStatus = "idle" | "checking" | "waking" | "ready"
 
 interface UseBackendWakeupOptions {
   enabled?: boolean
   /**
-   * The notice should not appear for normal network latency.
-   * It is shown only when the backend takes longer than this value.
+   * Show the wakeup notice only if the backend/content request is still pending
+   * after this delay. Normal latency should never show the notice.
    */
   noticeDelayMs?: number
   requestTimeoutMs?: number
@@ -24,7 +24,7 @@ export function useBackendWakeup({
   noticeDelayMs = 5_000,
   requestTimeoutMs = 8_000,
   retryDelayMs = 3_500,
-  maxAttempts = 12,
+  maxAttempts = 8,
 }: UseBackendWakeupOptions = {}) {
   const [status, setStatus] = useState<BackendWakeupStatus>("idle")
   const [showNotice, setShowNotice] = useState(false)
@@ -37,15 +37,14 @@ export function useBackendWakeup({
     }
 
     let cancelled = false
-    let shouldShowWakeupNotice = false
-    let readyHideTimer: number | undefined
+    let noticeWasShown = false
 
     setStatus("checking")
     setShowNotice(false)
 
     const noticeTimer = window.setTimeout(() => {
       if (cancelled) return
-      shouldShowWakeupNotice = true
+      noticeWasShown = true
       setStatus("waking")
       setShowNotice(true)
     }, noticeDelayMs)
@@ -64,12 +63,10 @@ export function useBackendWakeup({
             window.clearTimeout(noticeTimer)
             setStatus("ready")
 
-            // If the backend answered before noticeDelayMs, never show a popup.
-            // If the notice was already visible, briefly confirm readiness and hide it.
-            if (shouldShowWakeupNotice) {
-              readyHideTimer = window.setTimeout(() => {
+            if (noticeWasShown) {
+              window.setTimeout(() => {
                 if (!cancelled) setShowNotice(false)
-              }, 1_200)
+              }, 900)
             } else {
               setShowNotice(false)
             }
@@ -77,27 +74,24 @@ export function useBackendWakeup({
             return
           }
         } catch {
-          if (cancelled) return
+          // Do not show false "down" states. This hook is only a wakeup helper.
         } finally {
           window.clearTimeout(timeout)
         }
 
         if (cancelled) return
 
-        if (shouldShowWakeupNotice) {
-          setStatus("waking")
-          setShowNotice(true)
-        }
-
         if (attempt < maxAttempts) {
           await sleep(retryDelayMs)
         }
       }
 
+      // If health never confirms, stop showing the notice instead of claiming the
+      // backend is down. The real user actions/chat already handle API errors.
       if (!cancelled) {
         window.clearTimeout(noticeTimer)
-        setStatus("error")
-        setShowNotice(true)
+        setStatus("idle")
+        setShowNotice(false)
       }
     }
 
@@ -106,7 +100,6 @@ export function useBackendWakeup({
     return () => {
       cancelled = true
       window.clearTimeout(noticeTimer)
-      if (readyHideTimer) window.clearTimeout(readyHideTimer)
     }
   }, [enabled, maxAttempts, noticeDelayMs, requestTimeoutMs, retryDelayMs])
 

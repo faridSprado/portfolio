@@ -16,8 +16,11 @@ function App() {
   const content = usePortfolioContentStore((state) => state.content);
   const isLoading = usePortfolioContentStore((state) => state.isLoading);
   const isAdminRoute = useMemo(() => window.location.pathname.startsWith("/admin"), []);
+
+  const isWaitingForInitialContent = !content && isLoading;
+
   const backendWakeup = useBackendWakeup({
-    enabled: !isAdminRoute,
+    enabled: !isAdminRoute && isWaitingForInitialContent,
     noticeDelayMs: 5_000,
     requestTimeoutMs: 8_000,
   });
@@ -34,7 +37,7 @@ function App() {
     if (!isAdminRoute) tokenManager.initialize();
   }, [isAdminRoute]);
 
-  if (isLoading || !content) {
+  if (isWaitingForInitialContent) {
     const isActuallyWaking = backendWakeup.showNotice && backendWakeup.status === "waking";
 
     return (
@@ -60,10 +63,29 @@ function App() {
     );
   }
 
+  if (!content) {
+    return (
+      <HelmetProvider>
+        <SEO />
+        <div className="app-shell grid-pattern flex min-h-screen items-center justify-center bg-background px-6 text-foreground">
+          <div className="aurora-card max-w-md rounded-[2rem] p-6 text-center">
+            <div className="relative z-10">
+              <p className="text-sm font-black uppercase tracking-[0.22em] text-primary">
+                Portfolio no disponible
+              </p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                No se pudo cargar el contenido. Recarga la página o inténtalo nuevamente en unos segundos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </HelmetProvider>
+    );
+  }
+
   return (
     <HelmetProvider>
       <SEO />
-      <BackendWakeupNotice status={backendWakeup.status} visible={backendWakeup.showNotice} />
       {isAdminRoute ? (
         <AdminPanel />
       ) : (
