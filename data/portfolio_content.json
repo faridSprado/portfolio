@@ -101,6 +101,22 @@
       "images": [
         "/projects/InsightAgent-SaaG.png"
       ]
+    },
+    {
+      "id": "opspilot-newrelic",
+      "title": "OpsPilot for New Relic",
+      "description": "OpsPilot for New Relic es una aplicación web full-stack que convierte datos reales de observabilidad en respuestas, gráficas y análisis accionables mediante un copiloto de IA. Está diseñada para conectar una cuenta de New Relic, descubrir aplicaciones APM, consultar métricas con lenguaje natural asistido por LLM, generar visualizaciones y exportar conversaciones completas en PDF.",
+      "technologies": [
+        "Python",
+        "TypeScript",
+        "CSS",
+        "Batchfile",
+        "Shell",
+        "Dockerfile"
+      ],
+      "repoUrl": "https://github.com/faridSprado/opspilot-newrelic",
+      "projectUrl": "https://opspilot-newrelic.vercel.app/",
+      "images": []
     }
   ],
   "experiences": [
